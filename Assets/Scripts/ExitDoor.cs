@@ -1,8 +1,14 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExitDoor : MonoBehaviour
 {
     public GameObject Clue;
+
+    public void backToDaBoss()
+    {
+        SceneManager.LoadScene("BossApartment");
+    }
 
     public void OnTriggerEnter(Collider collision)
     {

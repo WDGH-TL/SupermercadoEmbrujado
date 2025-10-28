@@ -47,17 +47,9 @@ public class Player : MonoBehaviour
 
         movement();
         mouseLook();
+        isPointingToCharacter();
+        Debug.DrawRay(camara.position, camara.forward * rayDistance, Color.magenta);
 
-        if (Physics.Raycast(camara.position, camara.forward, out RaycastHit hit, rayDistance))
-        {
-             if(hit.transform.CompareTag("NPC"))
-            {
-                npcInfo.SetActive(true);
-                Invoke("npcInfoHide", 2f);
-            }
-        }
-
-            Debug.DrawRay(camara.position, camara.forward * rayDistance, Color.magenta);
     }
     void movement()
 
@@ -71,13 +63,10 @@ public class Player : MonoBehaviour
         currentSpeed = isRunning ? runVelocidad : velocidad;
 
         if (movementX != 0 || movementY != 0)
-
         {
-
             Vector3 direccion = (transform.forward * movementY + transform.right * movementX).normalized;
 
             movimiento = direccion * currentSpeed;
-
         }
 
         movimiento.y = myPlayer.linearVelocity.y;
@@ -105,6 +94,22 @@ public class Player : MonoBehaviour
 
     }
 
+    void isPointingToCharacter()
+    {
+        if (Physics.Raycast(camara.position, camara.forward, out RaycastHit hit, rayDistance))
+        {
+            if (hit.transform.GetComponent<NPCDialogue>())
+            {
+                Debug.Log("Hit NPC");
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    hit.transform.GetComponent<NPCDialogue>().StartConversation();
+                    Debug.Log("StartConversation");
+                }
+            }
+        }
+    }
+
     void NPCInfoHide()
     {
         if (npcInfo != null)
@@ -112,5 +117,5 @@ public class Player : MonoBehaviour
             npcInfo.SetActive(false);
         }
     }
-
+    // Relacionar NPCInfoHide con isPointingToCharacter
 }

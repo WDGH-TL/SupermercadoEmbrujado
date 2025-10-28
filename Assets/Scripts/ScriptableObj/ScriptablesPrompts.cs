@@ -8,3 +8,8 @@ public struct DIALOGUE
     public Sprite characterSprite;
     public string phrase;
 }
+
+public struct DISCOUNTS
+{
+    public string discountValue;
+}

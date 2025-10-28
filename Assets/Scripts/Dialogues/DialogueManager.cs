@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
+    #region references
+    public static DialogueManager Instance;
+    #endregion
     public Dialogue initialDialogue;
     public TextMeshProUGUI dialogueText, nameText;
     public Image spriteImage;
@@ -12,16 +15,16 @@ public class DialogueManager : MonoBehaviour
     public bool isTalking;
     public int phraseIndex;
     public bool isTypeWriterEnded;
-
+    private void Awake()
+    {
+     Instance = this;      
+    }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F))
-        {
-            Talk();
-        }
+       
     }
 
-    private void Talk()
+    public void Talk(Dialogue dialogo)
     {
         if (isTalking)
         {
@@ -30,12 +33,12 @@ public class DialogueManager : MonoBehaviour
                 if (isTypeWriterEnded)
                 {
                     phraseIndex++;
-                    RefreshPhrase();
+                    RefreshPhrase(dialogo);
                 }
                 else
                 {
                     StopCoroutine("TypeWriterDialogue");
-                    dialogueText.text = initialDialogue.dialoguetext[phraseIndex].phrase;
+                    dialogueText.text = dialogo.dialoguetext[phraseIndex].phrase;
                     isTypeWriterEnded = true;
                 }
             }
@@ -52,31 +55,31 @@ public class DialogueManager : MonoBehaviour
                 else
                 {
                     StopCoroutine("TypeWriterDialogue");
-                    dialogueText.text = initialDialogue.dialoguetext[phraseIndex].phrase;
+                    dialogueText.text = dialogo.dialoguetext[phraseIndex].phrase;
                     isTypeWriterEnded = true;
                 }
             }
         }
         else
         {
-            RefreshPhrase();
+            RefreshPhrase(dialogo);
             isTalking = true;
         }
     }
 
-    private void RefreshPhrase()
+    private void RefreshPhrase(Dialogue dialogo)
     {
-        nameText.text = initialDialogue.dialoguetext[phraseIndex].characterName;
-        spriteImage.sprite = initialDialogue.dialoguetext[phraseIndex].characterSprite;
+        nameText.text = dialogo.dialoguetext[phraseIndex].characterName;
+        spriteImage.sprite = dialogo.dialoguetext[phraseIndex].characterSprite;
 
-        StartCoroutine("TypeWriterDialogue");
+        StartCoroutine(TypeWriterDialogue(dialogo));
     }
 
-    private IEnumerator TypeWriterDialogue()
+    private IEnumerator TypeWriterDialogue(Dialogue dialogo)
     {
         isTypeWriterEnded = false;
         dialogueText.text = string.Empty;
-        foreach (char character in initialDialogue.dialoguetext[phraseIndex].phrase)
+        foreach (char character in dialogo.dialoguetext[phraseIndex].phrase)
         {
             dialogueText.text += character;
             yield return new WaitForSeconds(0.1f);
