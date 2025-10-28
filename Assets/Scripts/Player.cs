@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
 
     public float rayDistance = 5f;
 
+    public GameObject npcInfo;
+
     void Start()
     {
         myPlayer = GetComponent<Rigidbody>();
@@ -45,8 +47,17 @@ public class Player : MonoBehaviour
 
         movement();
         mouseLook();
-       
-        Debug.DrawRay(camara.position, camara.forward * rayDistance, Color.cyan);
+
+        if (Physics.Raycast(camara.position, camara.forward, out RaycastHit hit, rayDistance))
+        {
+             if(hit.transform.CompareTag("NPC"))
+            {
+                npcInfo.SetActive(true);
+                Invoke("npcInfoHide", 2f);
+            }
+        }
+
+            Debug.DrawRay(camara.position, camara.forward * rayDistance, Color.magenta);
     }
     void movement()
 
@@ -94,6 +105,12 @@ public class Player : MonoBehaviour
 
     }
 
-
+    void NPCInfoHide()
+    {
+        if (npcInfo != null)
+        {
+            npcInfo.SetActive(false);
+        }
+    }
 
 }
