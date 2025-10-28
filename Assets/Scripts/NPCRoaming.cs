@@ -10,11 +10,15 @@ public class NPCRoaming : MonoBehaviour
     public float idleTimer;
     public float walkingSpeed = 5.5f;
     public float idleTime = 2.0f;
+    public float detection;
+    public Transform playerInRange;
+    private DialogueManager playerTalking;
 
     public enum NPC_STATE
     {
         Idle,
-        Walking
+        Walking,
+        Talking
     }
     public NPC_STATE currentState;
 
@@ -23,11 +27,13 @@ public class NPCRoaming : MonoBehaviour
         currentState = NPC_STATE.Idle;
         distanceDestinies = Vector3.Distance(transform.position, walkingPoints[destinies].position);
         characterMoving.destination = walkingPoints[destinies].position;
+        playerInRange = FindAnyObjectByType<Player>().transform;
     }
 
     public void Update()
     {
-        switch(currentState)
+        float playerDistance = Vector3.Distance(transform.position, playerInRange.position);
+        switch (currentState)
         {
             case NPC_STATE.Idle:
                 idleTimer -= Time.deltaTime;
@@ -44,6 +50,12 @@ public class NPCRoaming : MonoBehaviour
                     IdleState();
                 }
                 break;
+
+           /* case NPC_STATE.Talking:
+                if (playerDistance <= detection && )
+                {
+                    IdleState();
+                }*/
         }
     }
     void IdleState()
