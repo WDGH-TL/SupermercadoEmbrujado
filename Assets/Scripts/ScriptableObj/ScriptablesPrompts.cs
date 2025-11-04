@@ -13,4 +13,10 @@ public struct DISCOUNTS
 {
     public string discountedProduct;
     public string discountValue;
+    public string discountCondition;
+}
+
+public struct PRODUCTS
+{
+    public string productName;
 }

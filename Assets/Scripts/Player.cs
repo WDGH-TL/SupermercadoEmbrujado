@@ -102,12 +102,17 @@ public class Player : MonoBehaviour
             if (hit.transform.GetComponent<NPCDialogue>())
             {
                 Debug.Log("Hit NPC");
+                npcInfo.SetActive(true);
                 if(Input.GetKeyDown(KeyCode.E))
                 {
                     conversation.SetActive(true);
                     hit.transform.GetComponent<NPCDialogue>().StartConversation();
                     Debug.Log("StartConversation");
                 }
+            }
+            else
+            {
+                npcInfo.SetActive(false);
             }
         }
     }
