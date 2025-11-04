@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class DiscountManager : MonoBehaviour
 {
-    public Discounts currentDiscount;
-    public TextMeshProUGUI productInDiscount;
+    public Discounts currentDiscounts;
+    public Discounts percentageDiscount;
+    public Discounts condition;
+
+
 }

@@ -11,6 +11,7 @@ public class NPCRoaming : MonoBehaviour
     public float walkingSpeed = 5.5f;
     public float idleTime = 2.0f;
     public float detection;
+    public AudioSource imMoving;
     public Transform playerInRange;
     private DialogueManager playerTalking;
 
@@ -28,6 +29,7 @@ public class NPCRoaming : MonoBehaviour
         distanceDestinies = Vector3.Distance(transform.position, walkingPoints[destinies].position);
         characterMoving.destination = walkingPoints[destinies].position;
         playerInRange = FindAnyObjectByType<Player>().transform;
+        imMoving = GetComponent<AudioSource>();
     }
 
     public void Update()
@@ -39,6 +41,7 @@ public class NPCRoaming : MonoBehaviour
                 idleTimer -= Time.deltaTime;
                 if (idleTimer <= 0)
                 {
+                    imMoving.Play();
                     destinies = (destinies + 1) % walkingPoints.Length;
                     WalkingState();
                 }
@@ -48,6 +51,7 @@ public class NPCRoaming : MonoBehaviour
                 if (!characterMoving.pathPending && characterMoving.remainingDistance < 0.5f)
                 {
                     IdleState();
+                    imMoving.Stop();
                 }
                 break;
 
