@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using JetBrains.Annotations;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -15,13 +16,15 @@ public class DialogueManager : MonoBehaviour
     public bool isTalking;
     public int phraseIndex;
     public bool isTypeWriterEnded;
+    public GameObject dialogueUI;
     private void Awake()
     {
      Instance = this;      
+        dialogueUI.SetActive(false);
     }
     private void Update()
     {
-       
+
     }
 
     public void Talk(Dialogue dialogo)

@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     public float rayDistance = 5f;
 
     public GameObject npcInfo;
+    public GameObject conversation;
 
     void Start()
     {
@@ -103,12 +104,14 @@ public class Player : MonoBehaviour
                 Debug.Log("Hit NPC");
                 if(Input.GetKeyDown(KeyCode.E))
                 {
+                    conversation.SetActive(true);
                     hit.transform.GetComponent<NPCDialogue>().StartConversation();
                     Debug.Log("StartConversation");
                 }
             }
         }
     }
+
 
     void NPCInfoHide()
     {

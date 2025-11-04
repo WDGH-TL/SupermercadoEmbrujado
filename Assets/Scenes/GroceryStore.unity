@@ -8215,6 +8215,7 @@ MonoBehaviour:
   isTalking: 0
   phraseIndex: 0
   isTypeWriterEnded: 0
+  dialogueUI: {fileID: 272888848}
 --- !u!4 &215740619
 Transform:
   m_ObjectHideFlags: 0
@@ -10985,7 +10986,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &272888849
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21568,7 +21569,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 598778226}
-  - component: {fileID: 598778225}
+  - component: {fileID: 598778227}
   m_Layer: 0
   m_Name: DiscountsManager
   m_TagString: Untagged
@@ -21576,18 +21577,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &598778225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598778224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 284299a64b57506418479cb604f058d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Discounts
 --- !u!4 &598778226
 Transform:
   m_ObjectHideFlags: 0
@@ -21603,6 +21592,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &598778227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598778224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b8970c5ef98d6940a57525de14beeb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiscountManager
+  currentDiscount: {fileID: 0}
+  productInDiscount: {fileID: 0}
 --- !u!1 &602653199
 GameObject:
   m_ObjectHideFlags: 0
@@ -36208,8 +36211,9 @@ MonoBehaviour:
   enElSuelo: 0
   sensibilidadMouse: {x: 2, y: 2}
   camara: {fileID: 1630246116}
-  rayDistance: 5
+  rayDistance: 10
   npcInfo: {fileID: 1958935675}
+  conversation: {fileID: 272888848}
 --- !u!136 &1021416217
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -54079,6 +54083,7 @@ GameObject:
   - component: {fileID: 1546922509}
   - component: {fileID: 1546922508}
   - component: {fileID: 1546922507}
+  - component: {fileID: 1546922510}
   m_Layer: 0
   m_Name: Cube
   m_TagString: NPC
@@ -54178,6 +54183,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546922505}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1546922510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546922505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fae42a040f041446926dddc4fa6d2cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
+  NpcDialogo: {fileID: 11400000, guid: db808d83c3f682445acc1bb66b12f190, type: 2}
 --- !u!1 &1547677698
 GameObject:
   m_ObjectHideFlags: 0
@@ -75933,7 +75951,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 832575519}
-  - {fileID: 272888849}
   - {fileID: 263765210}
   - {fileID: 215740619}
   - {fileID: 1021416220}
@@ -75945,3 +75962,4 @@ SceneRoots:
   - {fileID: 598778226}
   - {fileID: 553621929}
   - {fileID: 1803997613}
+  - {fileID: 272888849}

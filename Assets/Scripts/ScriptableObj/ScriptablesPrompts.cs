@@ -11,5 +11,6 @@ public struct DIALOGUE
 
 public struct DISCOUNTS
 {
+    public string discountedProduct;
     public string discountValue;
 }
