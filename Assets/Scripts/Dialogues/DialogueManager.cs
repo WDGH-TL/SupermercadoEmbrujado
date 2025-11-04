@@ -54,6 +54,7 @@ public class DialogueManager : MonoBehaviour
                     spriteImage.sprite = null;
                     phraseIndex = 0;
                     isTalking = false;
+                    dialogueUI.SetActive(false);
                 }
                 else
                 {
@@ -89,4 +90,5 @@ public class DialogueManager : MonoBehaviour
         }
         isTypeWriterEnded = true;
     }
+
 }

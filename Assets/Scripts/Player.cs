@@ -111,8 +111,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-
-
     void NPCInfoHide()
     {
         if (npcInfo != null)
