@@ -9,5 +9,9 @@ public class DiscountManager : MonoBehaviour
     public Discounts percentageDiscount;
     public Discounts condition;
 
+    // Poner aca script de objetos cuando este listo
 
+    private void Awake()
+    {
+    }
 }
