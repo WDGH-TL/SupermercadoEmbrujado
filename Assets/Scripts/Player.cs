@@ -27,10 +27,12 @@ public class Player : MonoBehaviour
     public Vector2 sensibilidadMouse;
     public Transform camara;
 
-    public float rayDistance = 5f;
+    public float rayDistance = 0.1f;
 
     public GameObject npcInfo;
     public GameObject conversation;
+    public GameObject itemInfo;
+
 
     void Start()
     {
@@ -48,7 +50,14 @@ public class Player : MonoBehaviour
 
         movement();
         mouseLook();
-        isPointingToCharacter();
+
+        if (Physics.Raycast(camara.position, camara.forward, out RaycastHit hit, rayDistance))
+        {
+            isPointingToCharacter(hit);
+            isPointingToItem(hit);
+        }
+
+            
         Debug.DrawRay(camara.position, camara.forward * rayDistance, Color.magenta);
 
     }
@@ -95,33 +104,40 @@ public class Player : MonoBehaviour
 
     }
 
-    void isPointingToCharacter()
+    void isPointingToCharacter(RaycastHit Rhit)
     {
-        if (Physics.Raycast(camara.position, camara.forward, out RaycastHit hit, rayDistance))
+        if (Rhit.transform.GetComponent<NPCDialogue>())
         {
-            if (hit.transform.GetComponent<NPCDialogue>())
+            Debug.Log("Hit NPC");
+            npcInfo.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                Debug.Log("Hit NPC");
-                npcInfo.SetActive(true);
-                if(Input.GetKeyDown(KeyCode.E))
-                {
-                    conversation.SetActive(true);
-                    hit.transform.GetComponent<NPCDialogue>().StartConversation();
-                    Debug.Log("StartConversation");
-                }
-            }
-            else
-            {
-                npcInfo.SetActive(false);
+                conversation.SetActive(true);
+                Rhit.transform.GetComponent<NPCDialogue>().StartConversation();
+                Debug.Log("StartConversation");
             }
         }
-    }
-    void NPCInfoHide()
-    {
-        if (npcInfo != null)
+        else
         {
             npcInfo.SetActive(false);
         }
     }
-    // Relacionar NPCInfoHide con isPointingToCharacter
+
+    void isPointingToItem(RaycastHit Rhit)
+    {
+        if (Rhit.transform.GetComponent<ItemTemplate>())
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                itemInfo.SetActive(true);
+                Rhit.transform.GetComponent<ItemTemplate>().displayItemText();
+            }
+
+        }
+        else
+        {
+            itemInfo.SetActive(false);
+        }
+
+    }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1709980692756374687}
   - component: {fileID: 4415510247736893747}
   - component: {fileID: 5013440999008974839}
+  - component: {fileID: 1646897937899856738}
   m_Layer: 0
   m_Name: 'cerebro '
   m_TagString: Untagged
@@ -89,3 +90,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1646897937899856738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2224477690139415007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e0efb2fd89af6b40a2247c7458d7d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProductInfo
+  itemText: {fileID: 0}
