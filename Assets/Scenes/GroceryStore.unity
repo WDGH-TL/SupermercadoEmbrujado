@@ -31704,6 +31704,7 @@ GameObject:
   - component: {fileID: 866287929}
   - component: {fileID: 866287928}
   - component: {fileID: 866287927}
+  - component: {fileID: 866287931}
   m_Layer: 5
   m_Name: GroceryList
   m_TagString: Untagged
@@ -31794,6 +31795,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &866287931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866287926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e952eebe86f18de4b99ecb13d4427f56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ListUI
+  displayUI: {fileID: 1758655796}
 --- !u!1 &872489934
 GameObject:
   m_ObjectHideFlags: 0
@@ -62959,7 +62973,7 @@ GameObject:
   - component: {fileID: 1758655797}
   - component: {fileID: 1758655796}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Buy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

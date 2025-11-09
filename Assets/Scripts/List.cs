@@ -12,6 +12,8 @@ public class List : MonoBehaviour
     public string[] availableProducts;
     public int requestedProducts;
     public string selectedProduct;
+
+    private Dictionary<string, int> requestedItems = new Dictionary<string, int>();
     private List<string> selectedProductsList = new List<string>();
     private void Awake()
     {
@@ -42,6 +44,7 @@ public class List : MonoBehaviour
             productList.text = "No items requested.";
             return;
         }
+
         List<string> tempProducts = new List<string>(availableProducts);
         selectedProductsList.Clear();
 
@@ -52,19 +55,45 @@ public class List : MonoBehaviour
             selectedProductsList.Add(tempProducts[randomIndex]);
             tempProducts.RemoveAt(randomIndex);
         }
+
+        requestedItems.Clear();
+        foreach (string product in selectedProductsList)
+        {
+            int productQuantity = UnityEngine.Random.Range(1, 4);
+            requestedItems.Add(product, productQuantity);
+        }
+
         DisplayFinalList();
+
+        SaveList();
     }
     void DisplayFinalList()
     {
         string finalDisplay = "";
 
-        foreach (string product in selectedProductsList)
+        foreach (KeyValuePair<string, int> item in requestedItems)
         {
-            int productQuantity = UnityEngine.Random.Range(1, 4);
-
-            finalDisplay += $"- {productQuantity} x {product}\n";
+            finalDisplay += $"- {item.Value} x {item.Key}\n";
         }
 
         productList.text = finalDisplay;
+    }
+
+    public void SaveList()
+    {
+        List<string> itemEntries = new List<string>();
+
+        foreach (KeyValuePair<string, int> item in requestedItems)
+        {
+            itemEntries.Add($"{item.Key}:{item.Value}");
+        }
+
+        string serializedList = string.Join("#", itemEntries);
+
+        PlayerPrefs.SetString("GroceryListWithQuantity", serializedList);
+
+        PlayerPrefs.SetInt("GroceryListCount", requestedItems.Count);
+
+        PlayerPrefs.Save();
     }
 }
