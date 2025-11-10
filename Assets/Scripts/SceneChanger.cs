@@ -13,8 +13,14 @@ public class SceneChanger : MonoBehaviour
         SceneManager.LoadScene("GroceryStore");
     }
 
+    public void Comprar()
+    {
+        SceneManager.LoadScene("BossJudgement");
+    }
+
     public void Salir()
     {
         Application.Quit();
     }    
+
 }
