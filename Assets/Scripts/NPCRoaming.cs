@@ -1,78 +1,90 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+using System.Collections;
+using System.Collections.Generic;
 
-public class NPCRoaming : MonoBehaviour
+public class StalkerEnemy : MonoBehaviour
 {
-    public NavMeshAgent characterMoving;
-    public Transform[] walkingPoints;
-    public float distanceDestinies;
-    private int destinies;
-    public float idleTimer;
-    public float walkingSpeed = 5.5f;
+    public NavMeshAgent miGo;
+    public float walkingSpeed = 5.5f; // Caminar Animación
+    public float runningSpeed = 9.0f; // Correr Animación
+    public Transform[] patrolAreas; // Lista de Areas a patrullar
+    public float distanceDestinies; // Distancia del enemigo y el primer Area
+    private int patrols; // Contador
+    private Animator animator;
     public float idleTime = 2.0f;
-    public float detection;
-    public AudioSource imMoving;
-    public Transform playerInRange;
-    private DialogueManager playerTalking;
+    public float idleTimer;
 
-    public enum NPC_STATE
+    public AudioSource imMoving;
+
+
+    public enum ENEMY_STATE
     {
         Idle,
         Walking,
-        Talking
+        Running
     }
-    public NPC_STATE currentState;
+    public ENEMY_STATE currentState;
 
     void Start()
     {
-        currentState = NPC_STATE.Idle;
-        distanceDestinies = Vector3.Distance(transform.position, walkingPoints[destinies].position);
-        characterMoving.destination = walkingPoints[destinies].position;
-        playerInRange = FindAnyObjectByType<Player>().transform;
+
+        currentState = ENEMY_STATE.Idle;
+        animator = GetComponent<Animator>();
+
+        if (miGo == null || animator == null)
+        {
+            enabled = false;
+        }
+
+        miGo.speed = walkingSpeed;
+        distanceDestinies = Vector3.Distance(transform.position, patrolAreas[patrols].position);
+        miGo.destination = patrolAreas[patrols].position;
         imMoving = GetComponent<AudioSource>();
+        WalkingState();
     }
+
 
     public void Update()
     {
-        float playerDistance = Vector3.Distance(transform.position, playerInRange.position);
+        float speed = miGo.velocity.magnitude;
+        animator.SetFloat("Speed", speed);
         switch (currentState)
         {
-            case NPC_STATE.Idle:
+            case ENEMY_STATE.Idle:
+                
                 idleTimer -= Time.deltaTime;
                 if (idleTimer <= 0)
                 {
                     imMoving.Play();
-                    destinies = (destinies + 1) % walkingPoints.Length;
+                    patrols = (patrols + 1) % patrolAreas.Length;
                     WalkingState();
                 }
                 break;
 
-            case NPC_STATE.Walking:
-                if (!characterMoving.pathPending && characterMoving.remainingDistance < 0.5f)
+            case ENEMY_STATE.Walking:
+                if (!miGo.pathPending && miGo.remainingDistance < 0.5f)
                 {
                     IdleState();
                     imMoving.Stop();
                 }
                 break;
-
-           /* case NPC_STATE.Talking:
-                if (playerDistance <= detection && )
-                {
-                    IdleState();
-                }*/
         }
     }
     void IdleState()
     {
-        currentState = NPC_STATE.Idle;
+        currentState = ENEMY_STATE.Idle;
         idleTimer = idleTime;
-        characterMoving.isStopped = true;
+        miGo.isStopped = true;
     }
+
     void WalkingState()
     {
-        currentState = NPC_STATE.Walking;
-        characterMoving.isStopped = false;
-        characterMoving.speed = walkingSpeed;
-        characterMoving.destination = walkingPoints[destinies].position;
+        currentState = ENEMY_STATE.Walking;
+        miGo.isStopped = false;
+        miGo.speed = walkingSpeed;
+        miGo.destination = patrolAreas[patrols].position;
     }
 }
