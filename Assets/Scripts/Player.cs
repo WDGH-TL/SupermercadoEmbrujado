@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     public GameObject conversation;
     public GameObject itemInfo;
 
+    public Inventory playerInv;
 
     void Start()
     {
@@ -55,6 +56,14 @@ public class Player : MonoBehaviour
         {
             isPointingToCharacter(hit);
             isPointingToItem(hit);
+
+            if(Input.GetKeyDown(KeyCode.Return))
+            {
+                if(playerInv != null)
+                {
+                    playerInv.AddItemToInventory(hit);
+                }
+            }
         }
 
             

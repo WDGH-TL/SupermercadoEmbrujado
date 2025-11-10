@@ -8,4 +8,9 @@ public class ItemTemplate : MonoBehaviour
     {
         ItemManager.Instance.Display(itemText);
     }
+
+    public string itemName()
+    {
+        return ItemManager.Instance.GetProductName(itemText);
+    }
 }
